@@ -193,3 +193,16 @@ FFWProxy.share(options).then(data=>{
   console.error(err)
 })
 ```
+
+### 如果想直接在浏览器中使用
+``` javascript
+  <script src="path\to\dist\fireflywallet.min.js"></script>
+  <script>
+    var FFWProxy = new FireFlyWallet();
+    FFWProxy.ready().then(function(FFW){
+      console.log('firefly wallet is ready!')
+    }).catch(function(err){
+      console.error(err);
+    })
+  </script>
+```
