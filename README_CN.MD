@@ -59,7 +59,7 @@ FFWProxy.ready().then(FFW=>{
   })
 ```
 
-### 获取当前设备uuid(做了sha259)
+### 获取当前设备uuid(原始数据做了sha256处理)
 ``` javascript
   FFWProxy.uuid
 ```

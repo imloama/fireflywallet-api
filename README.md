@@ -60,7 +60,7 @@ or
   })
 ```
 
-### get uuid of phone
+### get uuid of phone(The raw data was processed with sha256)
 ``` javascript
   FFWProxy.uuid
 ```
