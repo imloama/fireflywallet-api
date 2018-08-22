@@ -145,7 +145,6 @@ FFWProxy.pathPayment({
   memo: 'Hello,FFW'
 }).then(data=>{
     console.log('pathpayment success')
-    this.pathPaymentResult = true
   }).catch(err=>{
     console.error(err)
   })
@@ -176,7 +175,6 @@ FFWProxy.signXDR(xdr,"sign XDR").then(data=>{
 ``` javascript
 FFWProxy.scan().then(data=>{
   console.log(`scan result: ${data}`);
-  this.scanResult = true
 }).catch(err=>{
   console.error(err)
 })

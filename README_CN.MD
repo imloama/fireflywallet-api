@@ -50,7 +50,7 @@ FFWProxy.ready().then(FFW=>{
 ``` javascript
   FFWProxy.accountId
 ```
-or
+或者
 ``` javascript
   FFWProxy.getAccountId().then(accountid=>{
     console.log(accountid)
@@ -63,7 +63,7 @@ or
 ``` javascript
   FFWProxy.uuid
 ```
-or
+或者
 ``` javascript
   FFWProxy.getUuid().then(uuid=>{
     console.log(uuid);
@@ -76,7 +76,7 @@ or
 ``` javascript
   FFWProxy.locale
 ```
-or
+或者
 ``` javascript
   FFWProxy.getLocale().then(locale=>{
     console.log(locale)
@@ -89,7 +89,7 @@ or
 ``` javascript
   FFWProxy.contacts
 ```
-or
+或者
 ``` javascript
   FFWProxy.getContacts().then(contacts=>{
     console.log(contacts)
@@ -144,7 +144,6 @@ FFWProxy.pathPayment({
   memo: 'Hello,FFW'
 }).then(data=>{
     console.log('pathpayment success')
-    this.pathPaymentResult = true
   }).catch(err=>{
     console.error(err)
   })
@@ -175,7 +174,6 @@ FFWProxy.signXDR(xdr,"签名XDR").then(data=>{
 ``` javascript
 FFWProxy.scan().then(data=>{
   console.log(`扫描结果：${data}`);
-  this.scanResult = true
 }).catch(err=>{
   console.error(err)
 })
