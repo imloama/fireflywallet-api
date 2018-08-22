@@ -1,10 +1,9 @@
-# firefly wallet dapp api
+# 萤火钱包轻应用接口api
 
-[中文说明](README_CN.MD)
 
-## Example
+## 示例
 
-### install
+### 安装
 `
 npm install fireflywallet-api --save
 `
@@ -21,13 +20,11 @@ FFWProxy.ready().then(FFW=>{
 })
 `
 
-### get version of firefly wallet app
+### 获取萤火钱包版本号
 `
   FFWProxy.version
 `
-
-or
-
+或者
 `
   FFWProxy.getVersion().then(version=>{
     console.log(version)
@@ -36,13 +33,11 @@ or
   })
 `
 
-### get platform of firefly wallet app
+### 获取当前运行平台
 `
   FFWProxy.platform
 `
-
-or
-
+或者
 `
   FFWProxy.getPlatform().then(platform=>{
     console.log(platform);
@@ -51,13 +46,11 @@ or
   })
 `
 
-### get accountid 
+### 获取当前账户恒星公钥
 `
   FFWProxy.accountId
 `
-
 or
-
 `
   FFWProxy.getAccountId().then(accountid=>{
     console.log(accountid)
@@ -66,7 +59,7 @@ or
   })
 `
 
-### get uuid of phone
+### 获取当前设备uuid(做了sha259)
 `
   FFWProxy.uuid
 `
@@ -79,7 +72,7 @@ or
   })
 `
 
-### get locale of firefly wallet app
+### 获取当前萤火钱包的语言
 `
   FFWProxy.locale
 `
@@ -92,7 +85,7 @@ or
   })
 `
 
-### get contacts
+### 获取联系人信息
 `
   FFWProxy.contacts
 `
@@ -105,7 +98,7 @@ or
   })
 `
 
-### get account balance
+### 获取当前账户余额
 `
 FFWProxy.getBalances().then(balances=>{
   console.log(balances)
@@ -114,7 +107,7 @@ FFWProxy.getBalances().then(balances=>{
 })
 `
 
-### sign data(data is JSON type)
+### 数据签名，待签名的数据必须为JSON格式
 `
 let data = { accountid: 'GG', time: new Date().getTime() }
 FFWProxy.sign(data).then(result=>{
@@ -124,14 +117,14 @@ FFWProxy.sign(data).then(result=>{
 })
 `
 
-### pay
+### 支付
 `
 FFWProxy.pay({
   destination: 'GCKKUWHT3ILQWWKQ3MUOCAC7LRJNLCOES7SEI6TCQVGZD4GCULO2PGNU', 
   code: 'XFF', 
   issuer: 'GAZEX2USUBMMWFRZFS77VDJYXUFLXI4ZGFPWX6TBNZCSTEQWNLFZMXFF', 
   amount: 1, 
-  memo_type: 'TEXT', //see documents from stellar.org/developers
+  memo_type: 'TEXT', //取值见stellar的api文档
   memo: 'Hello,FFW'
 }).then(data=>{
   console.log('pay success');
@@ -140,7 +133,7 @@ FFWProxy.pay({
 })
 `
 
-### pathPayment
+### 路径支付
 `
 FFWProxy.pathPayment({
   destination: 'GCKKUWHT3ILQWWKQ3MUOCAC7LRJNLCOES7SEI6TCQVGZD4GCULO2PGNU', 
@@ -157,7 +150,7 @@ FFWProxy.pathPayment({
   })
 `
 
-### trust
+### 授信
 `
 let code = 'XFF';
 let issuer = 'GAZEX2USUBMMWFRZFS77VDJYXUFLXI4ZGFPWX6TBNZCSTEQWNLFZMXFF';
@@ -168,31 +161,31 @@ FFWProxy.trust(code,issuer).then(data=>{
   })
 `
 
-### signXDR
+### XDR签名（签名后的XDR可以提交到horizon）
 `
 let xdr = 'AAAAAEpng8wi7nIqz02/1bmC4I5jzz763WoadKIWy7M5MVc3AAAAZACHjkkAAAABAAAAAAAAAAAAAAABAAAAAAAAAAoAAAALaG9tZV9kb21haW4AAAAAAQAAABBodHRwOi8vZmNoYWluLmlvAAAAAAAAAAA='
-FFWProxy.signXDR(xdr,"sign XDR").then(data=>{
-    console.log(`signed XDR:${data}`)
+FFWProxy.signXDR(xdr,"签名XDR").then(data=>{
+    console.log(`签名后的XDR:${data}`)
   }).catch(err=>{
     console.error(err)
   })
 `
 
-### scan
+### 扫描
 `
 FFWProxy.scan().then(data=>{
-  console.log(`scan result: ${data}`);
+  console.log(`扫描结果：${data}`);
   this.scanResult = true
 }).catch(err=>{
   console.error(err)
 })
 `
 
-### share
+### 分享
 `
 let options = {
-  message: 'share image',
-  files: ['base64 of image']
+  message: '分享图片',
+  files: ['base64格式的图片']
 }
 FFWProxy.share(options).then(data=>{
   console.log('share success')

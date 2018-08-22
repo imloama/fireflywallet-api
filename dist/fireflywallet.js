@@ -1,4 +1,3 @@
-;
 var NOT_FFW_ERROR = new Error('not firefly wallet environment');
 var FireFlyWallet = /** @class */ (function () {
     function FireFlyWallet(appname, appid) {
@@ -27,28 +26,28 @@ var FireFlyWallet = /** @class */ (function () {
             }, _this._intervalTime);
         });
     };
-    ;
+    
     FireFlyWallet.prototype.clear = function () {
         if (this._interval != undefined) {
             clearInterval(this._interval);
         }
         this._interval = undefined;
     };
-    ;
+    
     FireFlyWallet.prototype.register = function () {
         if (window.FFW && window.FFW.register
             && this._appname != undefined && this._appid != undefined) {
             window.FFW.register(this._appname, this._appid);
         }
     };
-    ;
+    
     FireFlyWallet.prototype.getVersion = function () {
         if (window.FFW) {
             return Promise.resolve(window.FFW.version);
         }
         return Promise.reject(NOT_FFW_ERROR);
     };
-    ;
+    
     Object.defineProperty(FireFlyWallet.prototype, "version", {
         get: function () {
             return window.FFW ? window.FFW.version : undefined;
@@ -62,7 +61,7 @@ var FireFlyWallet = /** @class */ (function () {
         }
         return Promise.reject(NOT_FFW_ERROR);
     };
-    ;
+    
     Object.defineProperty(FireFlyWallet.prototype, "platform", {
         get: function () {
             return window.FFW ? window.FFW.platform : undefined;
@@ -76,7 +75,7 @@ var FireFlyWallet = /** @class */ (function () {
         }
         return Promise.reject(NOT_FFW_ERROR);
     };
-    ;
+    
     Object.defineProperty(FireFlyWallet.prototype, "accountId", {
         get: function () {
             return window.FFW ? window.FFW.address : undefined;
@@ -90,7 +89,7 @@ var FireFlyWallet = /** @class */ (function () {
         }
         return Promise.reject(NOT_FFW_ERROR);
     };
-    ;
+    
     Object.defineProperty(FireFlyWallet.prototype, "uuid", {
         get: function () {
             return window.FFW ? window.FFW.uuid : undefined;
@@ -104,7 +103,7 @@ var FireFlyWallet = /** @class */ (function () {
         }
         return Promise.reject(NOT_FFW_ERROR);
     };
-    ;
+    
     Object.defineProperty(FireFlyWallet.prototype, "locale", {
         get: function () {
             return window.FFW ? window.FFW.locale : undefined;
@@ -118,7 +117,7 @@ var FireFlyWallet = /** @class */ (function () {
         }
         return Promise.reject(NOT_FFW_ERROR);
     };
-    ;
+    
     Object.defineProperty(FireFlyWallet.prototype, "contacts", {
         get: function () {
             return window.FFW ? window.FFW.contacts : undefined;
@@ -126,7 +125,7 @@ var FireFlyWallet = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    ;
+    
     FireFlyWallet.prototype.getBalances = function () {
         if (window.FFW) {
             return new Promise(function (resolve, reject) {
@@ -144,7 +143,7 @@ var FireFlyWallet = /** @class */ (function () {
             return Promise.reject(NOT_FFW_ERROR);
         }
     };
-    ;
+    
     FireFlyWallet.prototype.sign = function (data) {
         if (window.FFW) {
             return new Promise(function (resolve, reject) {
@@ -162,7 +161,7 @@ var FireFlyWallet = /** @class */ (function () {
             return Promise.reject(NOT_FFW_ERROR);
         }
     };
-    ;
+    
     FireFlyWallet.prototype.pay = function (data) {
         if (window.FFW) {
             return new Promise(function (resolve, reject) {
@@ -180,7 +179,7 @@ var FireFlyWallet = /** @class */ (function () {
             return Promise.reject(NOT_FFW_ERROR);
         }
     };
-    ;
+    
     FireFlyWallet.prototype.pathPayment = function (data) {
         if (window.FFW) {
             return new Promise(function (resolve, reject) {
@@ -198,7 +197,7 @@ var FireFlyWallet = /** @class */ (function () {
             return Promise.reject(NOT_FFW_ERROR);
         }
     };
-    ;
+    
     FireFlyWallet.prototype.trust = function (code, issuer) {
         if (window.FFW) {
             return new Promise(function (resolve, reject) {
@@ -216,7 +215,7 @@ var FireFlyWallet = /** @class */ (function () {
             return Promise.reject(NOT_FFW_ERROR);
         }
     };
-    ;
+    
     FireFlyWallet.prototype.signXDR = function (data, message) {
         if (window.FFW) {
             return new Promise(function (resolve, reject) {
@@ -234,7 +233,7 @@ var FireFlyWallet = /** @class */ (function () {
             return Promise.reject(NOT_FFW_ERROR);
         }
     };
-    ;
+    
     FireFlyWallet.prototype.scan = function () {
         if (window.FFW) {
             return new Promise(function (resolve, reject) {
@@ -252,7 +251,7 @@ var FireFlyWallet = /** @class */ (function () {
             return Promise.reject(NOT_FFW_ERROR);
         }
     };
-    ;
+    
     FireFlyWallet.prototype.share = function (data) {
         if (window.FFW) {
             return new Promise(function (resolve, reject) {
@@ -270,7 +269,8 @@ var FireFlyWallet = /** @class */ (function () {
             return Promise.reject(NOT_FFW_ERROR);
         }
     };
-    ;
+    
     return FireFlyWallet;
 }());
+
 export { FireFlyWallet };

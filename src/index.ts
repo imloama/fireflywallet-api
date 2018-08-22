@@ -1,21 +1,24 @@
-declare global {
+declare namespace window {
   class FFW {
     static version: string;
-    static platfrom: string;
+    static platform: string;
     static address: string;
     static contacts: Array<any>;
     static uuid:string;
     static locale:string;
     static balances(cb:Function):void;
+    static sign(data:{}, cb:Function):void;
     static pay(data: any,cb:Function):void;
     static pathPayment(data: any,cb:Function):void;
     static trust(code:string,issuer:string|undefined,cb:Function):void;
     static signXDR(data: string, message: string|undefined,cb:Function):void;
     static scan(cb:Function):void;
     static share(options: any,cb:Function):void;
+    static register(appname:string, appid:string):void;
   }
 };
 
+const NOT_FFW_ERROR = new Error('not firefly wallet environment');
 
 export class FireFlyWallet {
   
@@ -23,6 +26,14 @@ export class FireFlyWallet {
   private _interval:number|undefined;
   private _intervalTime = 300;
   private _count = 50;
+  // 当前应用的信息
+  private _appname:string|undefined;
+  private _appid:string|undefined;
+  
+  constructor(appname:string|undefined,appid:string|undefined){
+    this._appname = appname;
+    this._appid = appid;
+  }
 
   /**
    * 监听是否存在
@@ -30,14 +41,15 @@ export class FireFlyWallet {
   ready(){
     return new Promise((resolve,reject)=>{
       this._interval = setInterval(()=>{
-        if(FFW){
-          this.clear()
-          resolve(FFW);
+        if(window.FFW){
+          this.clear();
+          this.register();
+          resolve(window.FFW);
         }
         this._count --;
         if(this._count < 0){
           this.clear()
-          reject('not firefly wallet environment');
+          reject(NOT_FFW_ERROR);
         }
       }, this._intervalTime);
     });
@@ -50,73 +62,118 @@ export class FireFlyWallet {
     this._interval = undefined;
   };
 
+  register(){
+    if(window.FFW && window.FFW.register 
+      && this._appname!=undefined && this._appid!=undefined){
+      window.FFW.register(this._appname, this._appid);
+    }
+  };
+
 
 
   getVersion():Promise<string>{
-    if(FFW){
-      return Promise.resolve(FFW.version);
+    if(window.FFW){
+      return Promise.resolve(window.FFW.version);
     }
-    return Promise.reject('not firefly wallet environment')
+    return Promise.reject(NOT_FFW_ERROR);
   };
+
+  get version():string|undefined{
+    return window.FFW ? window.FFW.version : undefined;
+  }
 
   getPlatform():Promise<string>{
-    if(FFW){
-      return Promise.resolve(FFW.platfrom);
+    if(window.FFW){
+      return Promise.resolve(window.FFW.platform);
     }
-    return Promise.reject('not firefly wallet environment')
+    return Promise.reject(NOT_FFW_ERROR)
   };
 
-  getAddress():Promise<string>{
-    if(FFW){
-      return Promise.resolve(FFW.address);
+  get platform():string|undefined{
+    return window.FFW ? window.FFW.platform : undefined;
+  }
+
+  getAccountId():Promise<string>{
+    if(window.FFW){
+      return Promise.resolve(window.FFW.address);
     }
-    return Promise.reject('not firefly wallet environment')
+    return Promise.reject(NOT_FFW_ERROR)
   };
+
+  get accountId():string|undefined{
+    return window.FFW? window.FFW.address:undefined;
+  }
 
   getUuid():Promise<string>{
-    if(FFW){
-      return Promise.resolve(FFW.uuid);
+    if(window.FFW){
+      return Promise.resolve(window.FFW.uuid);
     }
-    return Promise.reject('not firefly wallet environment')
+    return Promise.reject(NOT_FFW_ERROR)
   };
+
+  get uuid():string|undefined{
+    return window.FFW ? window.FFW.uuid : undefined;
+  }
 
   getLocale():Promise<string>{
-    if(FFW){
-      return Promise.resolve(FFW.locale);
+    if(window.FFW){
+      return Promise.resolve(window.FFW.locale);
     }
-    return Promise.reject('not firefly wallet environment')
+    return Promise.reject(NOT_FFW_ERROR)
   };
+
+  get locale():string|undefined{
+    return window.FFW ? window.FFW.locale : undefined;
+  }
 
   getContacts():Promise<Array<any>>{
-    if(FFW){
-      return Promise.resolve(FFW.contacts);
+    if(window.FFW){
+      return Promise.resolve(window.FFW.contacts);
     }
-    return Promise.reject('not firefly wallet environment')
+    return Promise.reject(NOT_FFW_ERROR)
   };
 
-
+  get contacts():Array<any>|undefined{
+    return window.FFW ? window.FFW.contacts : undefined;
+  };
 
   getBalances():Promise<Array<any>>{
-    if(FFW){
+    if(window.FFW){
       return new Promise((resolve,reject) => {
-        FFW.balances((response: any)=>{
+        window.FFW.balances((response: any)=>{
           if(response.code === 'success'){
-            resolve(response)
+            resolve(response.data)
           }else{
             reject(response.message)
           }
         });  
       });
     } else {
-      return Promise.reject('not firefly wallet environment')
+      return Promise.reject(NOT_FFW_ERROR)
+    }
+  };
+
+  sign(data:{}):Promise<any>{
+    if(window.FFW){
+      return new Promise((resolve,reject) => {
+        window.FFW.sign(JSON.stringify(data), (response: any)=>{
+          if(response.code === 'success'){
+            resolve(response.data);
+          }else{
+            reject(response.message);
+          }
+        });  
+      });
+    } else {
+      return Promise.reject(NOT_FFW_ERROR)
     }
   };
 
   
-  pay(data:{}):Promise<Array<any>>{
-    if(FFW){
+  pay(data:{}):Promise<any>{
+    if(window.FFW){
       return new Promise((resolve,reject) => {
-        FFW.pay(data, (response: any)=>{
+        window.FFW.pay(data, (response: any)=>{
           if(response.code === 'success'){
             resolve(response.data);
           }else{
@@ -125,14 +182,14 @@ export class FireFlyWallet {
         });  
       });
     } else {
-      return Promise.reject('not firefly wallet environment')
+      return Promise.reject(NOT_FFW_ERROR)
     }
   };
 
-  pathPayment(data:{}):Promise<Array<any>>{
-    if(FFW){
+  pathPayment(data:{}):Promise<any>{
+    if(window.FFW){
       return new Promise((resolve,reject) => {
-        FFW.pathPayment(data, (response: any)=>{
+        window.FFW.pathPayment(data, (response: any)=>{
           if(response.code === 'success'){
             resolve(response.data);
           }else{
@@ -141,32 +198,15 @@ export class FireFlyWallet {
         });  
       });
     } else {
-      return Promise.reject('not firefly wallet environment')
-    }
-  };
-
-  
-  trust(code:string, issuer:string|undefined):Promise<Array<any>>{
-    if(FFW){
-      return new Promise((resolve,reject) => {
-        FFW.trust(code, issuer , (response: any)=>{
-          if(response.code === 'success'){
-            resolve(response.data);
-          }else{
-            reject(response.message);
-          }
-        });  
-      });
-    } else {
-      return Promise.reject('not firefly wallet environment')
+      return Promise.reject(NOT_FFW_ERROR)
     }
   };
 
   
-  signXDR(data:string, message: string|undefined):Promise<Array<any>>{
-    if(FFW){
+  trust(code:string, issuer:string|undefined):Promise<any>{
+    if(window.FFW){
       return new Promise((resolve,reject) => {
-        FFW.signXDR(data, message, (response: any)=>{
+        window.FFW.trust(code, issuer , (response: any)=>{
           if(response.code === 'success'){
             resolve(response.data);
           }else{
@@ -175,16 +215,33 @@ export class FireFlyWallet {
         });  
       });
     } else {
-      return Promise.reject('not firefly wallet environment')
+      return Promise.reject(NOT_FFW_ERROR)
+    }
+  };
+
+  
+  signXDR(data:string, message: string|undefined):Promise<any>{
+    if(window.FFW){
+      return new Promise((resolve,reject) => {
+        window.FFW.signXDR(data, message, (response: any)=>{
+          if(response.code === 'success'){
+            resolve(response.data);
+          }else{
+            reject(response.message);
+          }
+        });  
+      });
+    } else {
+      return Promise.reject(NOT_FFW_ERROR)
     }
   };
 
 
   
-  scan():Promise<Array<any>>{
-    if(FFW){
+  scan():Promise<any>{
+    if(window.FFW){
       return new Promise((resolve,reject) => {
-        FFW.scan((response: any)=>{
+        window.FFW.scan((response: any)=>{
           if(response.code === 'success'){
             resolve(response.data);
           }else{
@@ -193,14 +250,14 @@ export class FireFlyWallet {
         });  
       });
     } else {
-      return Promise.reject('not firefly wallet environment')
+      return Promise.reject(NOT_FFW_ERROR)
     }
   };
 
   share(data:{}):Promise<Array<any>>{
-    if(FFW){
+    if(window.FFW){
       return new Promise((resolve,reject) => {
-        FFW.share(data, (response: any)=>{
+        window.FFW.share(data, (response: any)=>{
           if(response.code === 'success'){
             resolve(response.data);
           }else{
@@ -209,7 +266,7 @@ export class FireFlyWallet {
         });  
       });
     } else {
-      return Promise.reject('not firefly wallet environment')
+      return Promise.reject(NOT_FFW_ERROR)
     }
   };
   

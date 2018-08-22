@@ -13,13 +13,27 @@ module.exports = [
 		name: 'FireFlyWallet',
 		sourceMap: false,
 		output: {
-			format: 'cjs',
+			format: 'es',
 			file: 'dist/fireflywallet.js',
 		},
 		plugins: [
 			nodeResolve({ jsnext: true, main: true }),
 			buble(),
 			!isDevelopmentEnv && uglify({ output: { inline_script: true } }),
+		],
+	},{
+		input: 'lib/index.js',
+		name: 'FireFlyWallet',
+		sourceMap: false,
+		context: 'window',
+		output: {
+			format: 'iife',
+			file: 'dist/fireflywallet.min.js',
+		},
+		plugins: [
+			nodeResolve({ jsnext: true, main: true }),
+			buble(),
+			uglify({ output: { inline_script: true } }),
 		],
 	},
 ];
