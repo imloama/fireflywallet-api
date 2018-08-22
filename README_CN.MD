@@ -11,7 +11,7 @@ npm install fireflywallet-api --save
 ### ready
 
 ``` javascript
-import { FireFlyWallet } from '../lib/fireflywallet';
+import { FireFlyWallet } from 'fireflywallet-api';
 const FFWProxy = new FireFlyWallet();
 FFWProxy.ready().then(FFW=>{
   console.log('firefly wallet api is ready')
