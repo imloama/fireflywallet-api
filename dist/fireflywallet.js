@@ -111,21 +111,6 @@ var FireFlyWallet = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    FireFlyWallet.prototype.getContacts = function () {
-        if (window.FFW) {
-            return Promise.resolve(window.FFW.contacts);
-        }
-        return Promise.reject(NOT_FFW_ERROR);
-    };
-    
-    Object.defineProperty(FireFlyWallet.prototype, "contacts", {
-        get: function () {
-            return window.FFW ? window.FFW.contacts : undefined;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    
     FireFlyWallet.prototype.getBalances = function () {
         if (window.FFW) {
             return new Promise(function (resolve, reject) {
@@ -268,6 +253,46 @@ var FireFlyWallet = /** @class */ (function () {
         else {
             return Promise.reject(NOT_FFW_ERROR);
         }
+    };
+    
+    // ajax请求
+    FireFlyWallet.prototype.request = function (options) {
+        if (window.FFW == undefined) {
+            return Promise.reject(NOT_FFW_ERROR);
+        }
+        return new Promise(function (resolve, reject) {
+            window.FFW.request(options, function (response) {
+                if (response.statusCode == 200) {
+                    resolve(response);
+                }
+                else {
+                    reject(response);
+                }
+            });
+        });
+    };
+    
+    FireFlyWallet.prototype.toast = function (options) {
+        if (window.FFW == undefined) {
+            throw new Error('not init');
+        }
+        window.FFW.toast(options);
+    };
+    
+    // 打开其他dapp
+    FireFlyWallet.prototype.openDApp = function (appid) {
+        if (window.FFW == undefined) {
+            throw new Error('not init');
+        }
+        window.FFW.openDApp(appid);
+    };
+    
+    // 初始化展示界面，主要用于导航栏的处理和导航部分的字体颜色处理
+    FireFlyWallet.prototype.initWindow = function (options) {
+        if (window.FFW == undefined) {
+            throw new Error('not init');
+        }
+        window.FFW.initWindow(options);
     };
     
     return FireFlyWallet;

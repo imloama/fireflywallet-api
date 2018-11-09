@@ -3,9 +3,10 @@ declare namespace window {
     static version: string;
     static platform: string;
     static address: string;
-    static contacts: Array<any>;
     static uuid:string;
     static locale:string;
+    static appid:string;
+    static appname:string;
     static balances(cb:Function):void;
     static sign(data:{}, cb:Function):void;
     static pay(data: any,cb:Function):void;
@@ -15,6 +16,10 @@ declare namespace window {
     static scan(cb:Function):void;
     static share(options: any,cb:Function):void;
     static register(appname:string, appid:string):void;
+    static request(options: any, cb:Function):void;
+    static toast(options:any):void;
+    static openDApp(appid:string):void;
+    static initWindow(options:any):void;
   }
 };
 
@@ -125,17 +130,6 @@ export class FireFlyWallet {
   get locale():string|undefined{
     return window.FFW ? window.FFW.locale : undefined;
   }
-
-  getContacts():Promise<Array<any>>{
-    if(window.FFW){
-      return Promise.resolve(window.FFW.contacts);
-    }
-    return Promise.reject(NOT_FFW_ERROR)
-  };
-
-  get contacts():Array<any>|undefined{
-    return window.FFW ? window.FFW.contacts : undefined;
-  };
 
   getBalances():Promise<Array<any>>{
     if(window.FFW){
@@ -269,14 +263,45 @@ export class FireFlyWallet {
       return Promise.reject(NOT_FFW_ERROR)
     }
   };
+
+  // ajax请求
+  request(options:{}):Promise<any>{
+    if(window.FFW == undefined){
+      return Promise.reject(NOT_FFW_ERROR);
+    }
+    return new Promise((resolve, reject) => {
+      window.FFW.request(options, (response: any) => {
+        if(response.statusCode == 200){
+          resolve(response);
+        }else{
+          reject(response);
+        }
+      })
+    });
+  };
   
+  toast(options:{}):void{
+    if(window.FFW == undefined){
+      throw new Error('not init');
+    }
+    window.FFW.toast(options);
+  };
 
+  // 打开其他dapp
+  openDApp(appid:string):void{
+    if(window.FFW == undefined){
+      throw new Error('not init');
+    }
+    window.FFW.openDApp(appid);
+  };
 
-
-
-  
-
-
+  // 初始化展示界面，主要用于导航栏的处理和导航部分的字体颜色处理
+  initWindow(options:{}):void{
+    if(window.FFW == undefined){
+      throw new Error('not init');
+    }
+    window.FFW.initWindow(options);
+  };
 
 
 }
