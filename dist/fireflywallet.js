@@ -42,10 +42,7 @@ var FireFlyWallet = /** @class */ (function () {
     };
     
     FireFlyWallet.prototype.getVersion = function () {
-        if (window.FFW) {
-            return Promise.resolve(window.FFW.version);
-        }
-        return Promise.reject(NOT_FFW_ERROR);
+        return window.FFW ? Promise.resolve(window.FFW.version) : Promise.reject(NOT_FFW_ERROR);
     };
     
     Object.defineProperty(FireFlyWallet.prototype, "version", {
@@ -56,10 +53,7 @@ var FireFlyWallet = /** @class */ (function () {
         configurable: true
     });
     FireFlyWallet.prototype.getPlatform = function () {
-        if (window.FFW) {
-            return Promise.resolve(window.FFW.platform);
-        }
-        return Promise.reject(NOT_FFW_ERROR);
+        return window.FFW ? Promise.resolve(window.FFW.platform) : Promise.reject(NOT_FFW_ERROR);
     };
     
     Object.defineProperty(FireFlyWallet.prototype, "platform", {
@@ -69,28 +63,22 @@ var FireFlyWallet = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    FireFlyWallet.prototype.getAccountId = function () {
-        if (window.FFW) {
-            return Promise.resolve(window.FFW.address);
-        }
-        return Promise.reject(NOT_FFW_ERROR);
+    FireFlyWallet.prototype.getAccountID = function () {
+        return window.FFW ? Promise.resolve(window.FFW.address) : Promise.reject(NOT_FFW_ERROR);
     };
     
-    Object.defineProperty(FireFlyWallet.prototype, "accountId", {
+    Object.defineProperty(FireFlyWallet.prototype, "accountID", {
         get: function () {
             return window.FFW ? window.FFW.address : undefined;
         },
         enumerable: true,
         configurable: true
     });
-    FireFlyWallet.prototype.getUuid = function () {
-        if (window.FFW) {
-            return Promise.resolve(window.FFW.uuid);
-        }
-        return Promise.reject(NOT_FFW_ERROR);
+    FireFlyWallet.prototype.getUUID = function () {
+        return window.FFW ? Promise.resolve(window.FFW.uuid) : Promise.reject(NOT_FFW_ERROR);
     };
     
-    Object.defineProperty(FireFlyWallet.prototype, "uuid", {
+    Object.defineProperty(FireFlyWallet.prototype, "UUID", {
         get: function () {
             return window.FFW ? window.FFW.uuid : undefined;
         },
@@ -98,15 +86,42 @@ var FireFlyWallet = /** @class */ (function () {
         configurable: true
     });
     FireFlyWallet.prototype.getLocale = function () {
-        if (window.FFW) {
-            return Promise.resolve(window.FFW.locale);
-        }
-        return Promise.reject(NOT_FFW_ERROR);
+        return window.FFW ? Promise.resolve(window.FFW.locale) : Promise.reject(NOT_FFW_ERROR);
     };
     
     Object.defineProperty(FireFlyWallet.prototype, "locale", {
         get: function () {
             return window.FFW ? window.FFW.locale : undefined;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    FireFlyWallet.prototype.getAccountName = function () {
+        return window.FFW ? Promise.resolve(window.FFW.accountName) : Promise.reject(NOT_FFW_ERROR);
+    };
+    Object.defineProperty(FireFlyWallet.prototype, "accountName", {
+        get: function () {
+            return window.FFW ? window.FFW.accountName : undefined;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    FireFlyWallet.prototype.getHorizonUrl = function () {
+        return window.FFW ? Promise.resolve(window.FFW.horizonUrl) : Promise.reject(NOT_FFW_ERROR);
+    };
+    Object.defineProperty(FireFlyWallet.prototype, "horizonUrl", {
+        get: function () {
+            return window.FFW ? window.FFW.horizonUrl : undefined;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    FireFlyWallet.prototype.getNetwork = function () {
+        return window.FFW ? Promise.resolve(window.FFW.network) : Promise.reject(NOT_FFW_ERROR);
+    };
+    Object.defineProperty(FireFlyWallet.prototype, "network", {
+        get: function () {
+            return window.FFW ? window.FFW.network : undefined;
         },
         enumerable: true,
         configurable: true

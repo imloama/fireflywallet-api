@@ -3,10 +3,14 @@ declare namespace window {
     static version: string;
     static platform: string;
     static address: string;
+    static accountName: string;
     static uuid:string;
     static locale:string;
     static appid:string;
     static appname:string;
+    static horizonUrl: string;
+    // network passphrase
+    static network: string;
     static balances(cb:Function):void;
     static sign(data:{}, cb:Function):void;
     static pay(data: any,cb:Function):void;
@@ -26,7 +30,6 @@ declare namespace window {
 const NOT_FFW_ERROR = new Error('not firefly wallet environment');
 
 export class FireFlyWallet {
-  
 
   private _interval:number|undefined;
   private _intervalTime = 300;
@@ -75,12 +78,8 @@ export class FireFlyWallet {
   };
 
 
-
   getVersion():Promise<string>{
-    if(window.FFW){
-      return Promise.resolve(window.FFW.version);
-    }
-    return Promise.reject(NOT_FFW_ERROR);
+    return window.FFW ? Promise.resolve(window.FFW.version) : Promise.reject(NOT_FFW_ERROR);
   };
 
   get version():string|undefined{
@@ -88,47 +87,59 @@ export class FireFlyWallet {
   }
 
   getPlatform():Promise<string>{
-    if(window.FFW){
-      return Promise.resolve(window.FFW.platform);
-    }
-    return Promise.reject(NOT_FFW_ERROR)
+    return window.FFW ? Promise.resolve(window.FFW.platform) : Promise.reject(NOT_FFW_ERROR);
   };
 
   get platform():string|undefined{
     return window.FFW ? window.FFW.platform : undefined;
   }
 
-  getAccountId():Promise<string>{
-    if(window.FFW){
-      return Promise.resolve(window.FFW.address);
-    }
-    return Promise.reject(NOT_FFW_ERROR)
+  getAccountID():Promise<string>{
+    return window.FFW ? Promise.resolve(window.FFW.address) : Promise.reject(NOT_FFW_ERROR);
   };
 
-  get accountId():string|undefined{
+  get accountID():string|undefined{
     return window.FFW? window.FFW.address:undefined;
   }
 
-  getUuid():Promise<string>{
-    if(window.FFW){
-      return Promise.resolve(window.FFW.uuid);
-    }
-    return Promise.reject(NOT_FFW_ERROR)
+  getUUID():Promise<string>{
+    return window.FFW ? Promise.resolve(window.FFW.uuid) : Promise.reject(NOT_FFW_ERROR);
   };
 
-  get uuid():string|undefined{
+  get UUID():string|undefined{
     return window.FFW ? window.FFW.uuid : undefined;
   }
 
   getLocale():Promise<string>{
-    if(window.FFW){
-      return Promise.resolve(window.FFW.locale);
-    }
-    return Promise.reject(NOT_FFW_ERROR)
+    return window.FFW ? Promise.resolve(window.FFW.locale) : Promise.reject(NOT_FFW_ERROR);
   };
 
   get locale():string|undefined{
     return window.FFW ? window.FFW.locale : undefined;
+  }
+
+  getAccountName(): Promise<string>{
+    return window.FFW ? Promise.resolve(window.FFW.accountName) : Promise.reject(NOT_FFW_ERROR);
+  }
+
+  get accountName():string|undefined{
+    return window.FFW ? window.FFW.accountName : undefined;
+  }
+
+  getHorizonUrl():Promise<string>{
+    return window.FFW ? Promise.resolve(window.FFW.horizonUrl) : Promise.reject(NOT_FFW_ERROR);
+  }
+
+  get horizonUrl():string|undefined{
+    return window.FFW ? window.FFW.horizonUrl : undefined;
+  }
+
+  getNetwork():Promise<string>{
+    return window.FFW ? Promise.resolve(window.FFW.network) : Promise.reject(NOT_FFW_ERROR);
+  }
+
+  get network():string|undefined{
+    return window.FFW? window.FFW.network:undefined
   }
 
   getBalances():Promise<Array<any>>{
