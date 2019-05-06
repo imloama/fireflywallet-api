@@ -7,6 +7,8 @@
 ### install
 ``` 
 npm install fireflywallet-api --save
+or
+yarn add fireflywallet-api
 ```
 
 ### ready
@@ -47,26 +49,39 @@ or
   })
 ```
 
-### get accountid 
+### get accountID
 ``` javascript
-  FFWProxy.accountId
+  FFWProxy.accountID
 ```
 or
 ``` javascript
-  FFWProxy.getAccountId().then(accountid=>{
-    console.log(accountid)
+  FFWProxy.getAccountID().then(accountID=>{
+    console.log(accountID)
   }).catch(err=>{
     console.log(err)
   })
 ```
 
-### get uuid of phone(The raw data was processed with sha256)
-``` javascript
-  FFWProxy.uuid
+### get accountName
+```javascript
+  FFWProxy.accountName
 ```
 or
 ``` javascript
-  FFWProxy.getUuid().then(uuid=>{
+  FFWProxy.getAccountName().then(accountName=>{
+    console.log(accountName)
+  }).catch(err=>{
+    console.log(err)
+  })
+```
+
+### get UUID of phone(The raw data was processed with sha256)
+``` javascript
+  FFWProxy.UUID
+```
+or
+``` javascript
+  FFWProxy.getUUID().then(uuid=>{
     console.log(uuid);
   }).catch(err=>{
     console.error(err)
@@ -86,14 +101,28 @@ or
   })
 ```
 
-### get contacts
+### get horizonUrl
 ``` javascript
-  FFWProxy.contacts
+  FFWProxy.horizonUrl
 ```
 or
 ``` javascript
-  FFWProxy.getContacts().then(contacts=>{
-    console.log(contacts)
+  FFWProxy.getHorizonUrl().then(horizonUrl=>{
+    console.log(horizonUrl)
+  }).catch(err=>{
+    console.error(err)
+  })
+```
+
+### get network
+``` javascript
+  FFWProxy.network
+```
+or
+``` javascript
+  FFWProxy.getNetwork().then(network=>{
+    console.log(network)
+    //output: "Public Global Stellar Network ; September 2015" or "Test SDF Network ; September 2015"
   }).catch(err=>{
     console.error(err)
   })

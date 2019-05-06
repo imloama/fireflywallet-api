@@ -48,24 +48,37 @@ FFWProxy.ready().then(FFW=>{
 
 ### 获取当前账户恒星公钥
 ``` javascript
-  FFWProxy.accountId
+  FFWProxy.accountID
 ```
 或者
 ``` javascript
-  FFWProxy.getAccountId().then(accountid=>{
-    console.log(accountid)
+  FFWProxy.getAccountID().then(accountID=>{
+    console.log(accountID)
   }).catch(err=>{
     console.log(err)
   })
 ```
 
-### 获取当前设备uuid(原始数据做了sha256处理)
+### 获取当前账户名称
+```javascript
+  FFWProxy.accountName
+```
+or
 ``` javascript
-  FFWProxy.uuid
+  FFWProxy.getAccountName().then(accountName=>{
+    console.log(accountName)
+  }).catch(err=>{
+    console.log(err)
+  })
+```
+
+### 获取当前设备UUID(原始数据做了sha256处理)
+``` javascript
+  FFWProxy.UUID
 ```
 或者
 ``` javascript
-  FFWProxy.getUuid().then(uuid=>{
+  FFWProxy.getUUID().then(uuid=>{
     console.log(uuid);
   }).catch(err=>{
     console.error(err)
@@ -85,18 +98,33 @@ FFWProxy.ready().then(FFW=>{
   })
 ```
 
-### 获取联系人信息
+### 获取用户当前的horizon地址
 ``` javascript
-  FFWProxy.contacts
+  FFWProxy.horizonUrl
 ```
-或者
+or
 ``` javascript
-  FFWProxy.getContacts().then(contacts=>{
-    console.log(contacts)
+  FFWProxy.getHorizonUrl().then(horizonUrl=>{
+    console.log(horizonUrl)
   }).catch(err=>{
     console.error(err)
   })
 ```
+
+### 获取当前horizon网络的密语
+``` javascript
+  FFWProxy.network
+```
+or
+``` javascript
+  FFWProxy.getNetwork().then(network=>{
+    console.log(network)
+    //输出: "Public Global Stellar Network ; September 2015" or "Test SDF Network ; September 2015"
+  }).catch(err=>{
+    console.error(err)
+  })
+```
+
 
 ### 获取当前账户余额
 ``` javascript
