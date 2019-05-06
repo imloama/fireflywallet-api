@@ -77,6 +77,13 @@ export class FireFlyWallet {
     }
   };
 
+  getOrigin():Promise<window.FFW>{
+    return window.FFW ? Promise.resolve(window.FFW) : Promise.reject(NOT_FFW_ERROR);
+  }
+
+  get origin(): window.FFW {
+    return window.FFW;
+  }
 
   getVersion():Promise<string>{
     return window.FFW ? Promise.resolve(window.FFW.version) : Promise.reject(NOT_FFW_ERROR);

@@ -26,9 +26,9 @@ FFWProxy.ready().then(FFW=>{
 ### get version of firefly wallet app
 ``` javascript
   FFWProxy.version
-```
+
 or
-``` javascript
+
   FFWProxy.getVersion().then(version=>{
     console.log(version)
   }).catch(err=>{
@@ -39,9 +39,9 @@ or
 ### get platform of firefly wallet app
 ``` javascript
   FFWProxy.platform
-```
+
 or
-``` javascript
+
   FFWProxy.getPlatform().then(platform=>{
     console.log(platform);
   }).catch(err=>{
@@ -52,9 +52,9 @@ or
 ### get accountID
 ``` javascript
   FFWProxy.accountID
-```
+
 or
-``` javascript
+
   FFWProxy.getAccountID().then(accountID=>{
     console.log(accountID)
   }).catch(err=>{
@@ -65,9 +65,9 @@ or
 ### get accountName
 ```javascript
   FFWProxy.accountName
-```
+
 or
-``` javascript
+
   FFWProxy.getAccountName().then(accountName=>{
     console.log(accountName)
   }).catch(err=>{
@@ -78,9 +78,9 @@ or
 ### get UUID of phone(The raw data was processed with sha256)
 ``` javascript
   FFWProxy.UUID
-```
+
 or
-``` javascript
+
   FFWProxy.getUUID().then(uuid=>{
     console.log(uuid);
   }).catch(err=>{
@@ -91,9 +91,9 @@ or
 ### get locale of firefly wallet app
 ``` javascript
   FFWProxy.locale
-```
+
 or
-``` javascript
+
   FFWProxy.getLocale().then(locale=>{
     console.log(locale)
   }).catch(err=>{
@@ -104,9 +104,9 @@ or
 ### get horizonUrl
 ``` javascript
   FFWProxy.horizonUrl
-```
+
 or
-``` javascript
+
   FFWProxy.getHorizonUrl().then(horizonUrl=>{
     console.log(horizonUrl)
   }).catch(err=>{
@@ -117,9 +117,9 @@ or
 ### get network
 ``` javascript
   FFWProxy.network
-```
+
 or
-``` javascript
+
   FFWProxy.getNetwork().then(network=>{
     console.log(network)
     //output: "Public Global Stellar Network ; September 2015" or "Test SDF Network ; September 2015"
@@ -218,6 +218,20 @@ let options = {
 FFWProxy.share(options).then(data=>{
   console.log('share success')
 }).catch(err=>{
+  console.error(err)
+})
+```
+
+### get origin object
+``` javascript
+FFWProxy.origin
+//output: window.FFW
+
+or
+
+FFWProxy.getOrigin().then(FFW => {
+  console.log(FFW)
+}).catch(err => {
   console.error(err)
 })
 ```

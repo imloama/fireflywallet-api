@@ -220,6 +220,20 @@ FFWProxy.share(options).then(data=>{
 })
 ```
 
+### 返回原始FFW对象
+``` javascript
+FFWProxy.origin
+//output: window.FFW
+
+或者
+
+FFWProxy.getOrigin().then(FFW => {
+  console.log(FFW)
+}).catch(err => {
+  console.error(err)
+})
+```
+
 ### 如果想直接在浏览器中使用
 ``` javascript
   <script src="path\to\dist\fireflywallet.min.js"></script>
